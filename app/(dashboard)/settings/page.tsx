@@ -1,5 +1,15 @@
+import type { Metadata } from 'next'
 import { getUserProfile } from './actions'
 import { SettingsPageClient } from './SettingsPageClient'
+
+export const metadata: Metadata = {
+  title: 'Settings',
+  description: 'Manage your account settings and profile information for Personal Finance Dashboard.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
 
 export default async function SettingsPage() {
   const result = await getUserProfile()

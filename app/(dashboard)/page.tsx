@@ -1,11 +1,21 @@
+import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import { getDashboardStats, getMonthlySummary, getWeeklySummary } from './actions'
 import { getTransactions } from './transactions/actions'
 import { StatsCard } from '@/components/dashboard/StatsCard'
-import { MonthlyChart } from '@/components/charts/MonthlyChart'
-import { WeeklyChart } from '@/components/charts/WeeklyChart'
 import { TransactionList } from '@/components/dashboard/TransactionList'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { TrendingUp, TrendingDown, Wallet, Calendar } from 'lucide-react'
+import { MonthlyChartWrapper, WeeklyChartWrapper } from '@/components/dashboard/ChartsWrapper'
+
+export const metadata: Metadata = {
+  title: 'Dashboard',
+  description: 'View your financial overview, track income and expenses, and monitor your financial health.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
 
 export default async function DashboardPage() {
   const [statsResult, monthlyResult, weeklyResult, transactionsResult] =
@@ -49,13 +59,13 @@ export default async function DashboardPage() {
           title="Total Expenses"
           value={stats.totalExpenses}
           change={stats.monthlyExpenses}
-          icon={<TrendingDown className="h-5 w-5 text-[var(--color-error-text-light)] dark:text-white" />}
+          icon={<TrendingDown className="h-5 w-5 text-[var(--color-error-text-light)]" />}
           variant="expense"
         />
         <StatsCard
           title="Net Balance"
           value={stats.netBalance}
-          icon={<Wallet className="h-5 w-5 text-[var(--color-info-text-light)] dark:text-white" />}
+          icon={<Wallet className="h-5 w-5 text-[var(--color-info-text-light)]" />}
           variant="balance"
         />
         <StatsCard
@@ -71,7 +81,13 @@ export default async function DashboardPage() {
             <CardTitle>Monthly Summary</CardTitle>
           </CardHeader>
           <CardContent>
-            <MonthlyChart data={monthlyData} />
+            <Suspense fallback={
+              <div className="h-[400px] flex items-center justify-center text-[var(--color-text-secondary)]">
+                Loading...
+              </div>
+            }>
+              <MonthlyChartWrapper data={monthlyData} />
+            </Suspense>
           </CardContent>
         </Card>
 
@@ -80,7 +96,13 @@ export default async function DashboardPage() {
             <CardTitle>Weekly Summary</CardTitle>
           </CardHeader>
           <CardContent>
-            <WeeklyChart data={weeklyData} />
+            <Suspense fallback={
+              <div className="h-[300px] flex items-center justify-center text-[var(--color-text-secondary)]">
+                Loading...
+              </div>
+            }>
+              <WeeklyChartWrapper data={weeklyData} />
+            </Suspense>
           </CardContent>
         </Card>
       </div>

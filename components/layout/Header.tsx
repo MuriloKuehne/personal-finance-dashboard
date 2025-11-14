@@ -1,41 +1,26 @@
-'use client'
+import { createClient } from '@/lib/supabase/server'
 
-import { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
 interface UserProfile {
   name: string | null
 }
 
-export const Header = () => {
-  const [profile, setProfile] = useState<UserProfile | null>(null)
-  const supabase = createClient()
+export const Header = async () => {
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
+  let profile: UserProfile | null = null
 
-      if (!user) return
+  if (user) {
+    const { data: profileData } = await supabase
+      .from('user_profiles')
+      .select('name')
+      .eq('id', user.id)
+      .single()
 
-      const { data: profileData } = await supabase
-        .from('user_profiles')
-        .select('name')
-        .eq('id', user.id)
-        .single()
-
-      if (profileData?.name) {
-        // Use profile name if it exists
-        setProfile(profileData)
-      } else {
-        // Fallback to 'User' if no profile name is set
-        setProfile({ name: null })
-      }
-    }
-
-    fetchProfile()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    profile = profileData || { name: null }
+  }
 
   return (
     <header className="border-b border-[var(--color-border-divider)] bg-[var(--color-background-primary)]">

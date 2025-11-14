@@ -21,7 +21,7 @@ export const MonthlyChart = ({ data }: MonthlyChartProps) => {
   }))
 
   return (
-    <div className="w-full h-[400px]">
+    <div className="w-full h-[400px] min-h-[400px]">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={chartData}>
           <CartesianGrid strokeDasharray="3 3" />

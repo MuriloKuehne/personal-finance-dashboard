@@ -9,7 +9,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       <input
         type={type}
         className={cn(
-          'flex h-10 w-full rounded-md border border-[var(--color-border-input)] bg-[var(--color-background-input)] px-3 py-2',
+          'flex h-10 w-full rounded-lg border border-[var(--color-border-input)] bg-[var(--color-background-input)] px-3 py-2',
           'text-sm text-[var(--color-text-primary)] ring-offset-[var(--color-background-primary)]',
           'file:border-0 file:bg-transparent file:text-sm file:font-medium',
           'placeholder:text-[var(--color-text-muted)]',

@@ -1,5 +1,15 @@
+import type { Metadata } from 'next'
 import { getCategories } from './actions'
 import { CategoriesPageClient } from './CategoriesPageClient'
+
+export const metadata: Metadata = {
+  title: 'Categories',
+  description: 'Organize your finances with custom categories. Create, edit, and manage categories to better track your income and expenses.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
 
 export default async function CategoriesPage() {
   const result = await getCategories()

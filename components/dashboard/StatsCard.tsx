@@ -21,15 +21,15 @@ export const StatsCard = ({
   const variantStyles = {
     default: 'border-[var(--color-stats-default-border)] !bg-[var(--color-stats-default-bg)]',
     income: 'border-[var(--color-stats-income-border)] !bg-[var(--color-stats-income-bg)]',
-    expense: '!bg-[#fecaca] dark:!bg-[#4a1111]',
-    balance: '!bg-[#93c5fd] dark:!bg-[#1e3a8a]',
+    expense: 'border-[var(--color-stats-expense-border)] !bg-[var(--color-stats-expense-bg)]',
+    balance: 'border-[var(--color-stats-balance-border)] !bg-[var(--color-stats-balance-bg)]',
   }
 
   const valueStyles = {
     default: 'text-[var(--color-stats-default-text)]',
     income: 'text-[var(--color-stats-income-text)]',
-    expense: '!text-white',
-    balance: '!text-white',
+    expense: 'text-[var(--color-stats-expense-text)]',
+    balance: 'text-[var(--color-stats-balance-text)]',
   }
 
   return (
@@ -58,12 +58,12 @@ export const StatsCard = ({
               className={cn(
                 'rounded-full p-3',
                 variant === 'income' && 'bg-[var(--color-stats-income-icon-bg)]',
-                variant === 'expense' && 'bg-[var(--color-stats-expense-icon-bg)] dark:bg-[#991b1b]',
-                variant === 'balance' && 'bg-[var(--color-stats-balance-icon-bg)] dark:bg-[#1e40af]',
+                variant === 'expense' && 'bg-[var(--color-stats-expense-icon-bg)]',
+                variant === 'balance' && 'bg-[var(--color-stats-balance-icon-bg)]',
                 variant === 'default' && 'bg-[var(--color-stats-default-icon-bg)]'
               )}
             >
-              <div className={cn(variant === 'expense' && 'dark:[&_svg]:text-white')}>
+              <div>
                 {icon}
               </div>
             </div>

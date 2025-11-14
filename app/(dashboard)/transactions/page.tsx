@@ -1,5 +1,15 @@
+import type { Metadata } from 'next'
 import { getTransactions } from './actions'
 import { TransactionsPageClient } from './TransactionsPageClient'
+
+export const metadata: Metadata = {
+  title: 'Transactions',
+  description: 'View and manage all your financial transactions. Add, edit, and delete transactions to keep your finances organized.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
 
 export default async function TransactionsPage() {
   const result = await getTransactions()
