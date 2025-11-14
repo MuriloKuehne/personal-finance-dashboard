@@ -104,7 +104,7 @@ export const TransactionList = ({ transactions: initialTransactions }: Transacti
 
       {filteredTransactions.length === 0 ? (
         <Card>
-          <CardContent className="p-6 text-center text-gray-500">
+          <CardContent className="p-6 text-center text-[var(--color-text-muted)]">
             No transactions found
           </CardContent>
         </Card>
@@ -122,25 +122,25 @@ export const TransactionList = ({ transactions: initialTransactions }: Transacti
                           backgroundColor: transaction.categories?.color || '#3B82F6',
                         }}
                       />
-                      <span className="font-medium text-gray-900">
+                      <span className="font-medium text-[var(--color-text-primary)]">
                         {transaction.categories?.name || 'Uncategorized'}
                       </span>
                       <span
                         className={`rounded-full px-2 py-1 text-xs font-medium ${
                           transaction.type === 'income'
-                            ? 'bg-green-100 text-green-700'
-                            : 'bg-red-100 text-red-700'
+                            ? 'bg-[var(--color-success-bg-light)] text-[var(--color-success-text)]'
+                            : 'bg-[var(--color-stats-expense-bg)] text-[var(--color-stats-expense-text)] dark:bg-[#4a1111] dark:text-[#ef4444]'
                         }`}
                       >
                         {transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1)}
                       </span>
                     </div>
                     {transaction.description && (
-                      <p className="mt-1 text-sm text-gray-600">
+                      <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
                         {transaction.description}
                       </p>
                     )}
-                    <p className="mt-1 text-xs text-gray-500">
+                    <p className="mt-1 text-xs text-[var(--color-text-muted)]">
                       {format(new Date(transaction.date), 'MMM dd, yyyy')}
                     </p>
                   </div>
@@ -148,8 +148,8 @@ export const TransactionList = ({ transactions: initialTransactions }: Transacti
                     <span
                       className={`text-lg font-bold ${
                         transaction.type === 'income'
-                          ? 'text-green-600'
-                          : 'text-red-600'
+                          ? 'text-[var(--color-success-text-light)]'
+                          : 'text-[var(--color-error-text-light)]'
                       }`}
                     >
                       {transaction.type === 'income' ? '+' : '-'}
@@ -190,14 +190,14 @@ export const TransactionList = ({ transactions: initialTransactions }: Transacti
             </DialogDescription>
           </DialogHeader>
           {transactionToDelete && (
-            <div className="my-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
+            <div className="my-4 rounded-lg border border-[var(--color-border-default)] bg-[var(--color-background-secondary)] p-4">
               <div className="space-y-1">
                 {transactionToDelete.description && (
-                  <p className="font-medium text-gray-900">
+                  <p className="font-medium text-[var(--color-text-primary)]">
                     {transactionToDelete.description}
                   </p>
                 )}
-                <p className="text-lg font-semibold text-gray-900">
+                <p className="text-lg font-semibold text-[var(--color-text-primary)]">
                   {formatCurrency(transactionToDelete.amount)}
                 </p>
               </div>

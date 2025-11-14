@@ -149,8 +149,8 @@ export function CategoriesPageClient({
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold text-gray-900">Categories</h2>
-          <p className="mt-1 text-sm text-gray-600">
+          <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">Categories</h2>
+          <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
             Organize your transactions with categories
           </p>
         </div>
@@ -162,10 +162,10 @@ export function CategoriesPageClient({
 
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Income Categories</h3>
+          <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">Income Categories</h3>
           {incomeCategories.length === 0 ? (
             <Card>
-              <CardContent className="p-6 text-center text-gray-500">
+              <CardContent className="p-6 text-center text-[var(--color-text-muted)]">
                 No income categories yet
               </CardContent>
             </Card>
@@ -180,7 +180,7 @@ export function CategoriesPageClient({
                           className="inline-block h-4 w-4 rounded-full"
                           style={{ backgroundColor: category.color }}
                         />
-                        <span className="font-medium text-gray-900">{category.name}</span>
+                        <span className="font-medium text-[var(--color-text-primary)]">{category.name}</span>
                       </div>
                       <div className="flex gap-2">
                         <Button
@@ -207,10 +207,10 @@ export function CategoriesPageClient({
         </div>
 
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Expense Categories</h3>
+          <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">Expense Categories</h3>
           {expenseCategories.length === 0 ? (
             <Card>
-              <CardContent className="p-6 text-center text-gray-500">
+              <CardContent className="p-6 text-center text-[var(--color-text-muted)]">
                 No expense categories yet
               </CardContent>
             </Card>
@@ -225,7 +225,7 @@ export function CategoriesPageClient({
                           className="inline-block h-4 w-4 rounded-full"
                           style={{ backgroundColor: category.color }}
                         />
-                        <span className="font-medium text-gray-900">{category.name}</span>
+                        <span className="font-medium text-[var(--color-text-primary)]">{category.name}</span>
                       </div>
                       <div className="flex gap-2">
                         <Button
@@ -261,13 +261,13 @@ export function CategoriesPageClient({
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <div className="rounded-md bg-red-50 p-3 text-sm text-red-800">
+              <div className="rounded-md bg-[var(--color-error-bg)] p-3 text-sm text-[var(--color-error-text)]">
                 {error}
               </div>
             )}
 
             <div className="space-y-2">
-              <label htmlFor="name" className="text-sm font-medium text-gray-900">
+              <label htmlFor="name" className="text-sm font-medium text-[var(--color-text-label)]">
                 Name
               </label>
               <Input
@@ -281,7 +281,7 @@ export function CategoriesPageClient({
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="type" className="text-sm font-medium text-gray-900">
+              <label htmlFor="type" className="text-sm font-medium text-[var(--color-text-label)]">
                 Type
               </label>
               <Select
@@ -300,7 +300,7 @@ export function CategoriesPageClient({
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-900">Color</label>
+              <label className="text-sm font-medium text-[var(--color-text-label)]">Color</label>
               <div className="flex flex-wrap gap-2">
                 {COLORS.map((color) => (
                   <button
@@ -309,8 +309,8 @@ export function CategoriesPageClient({
                     onClick={() => setFormData({ ...formData, color })}
                     className={`h-10 w-10 rounded-full border-2 transition-all ${
                       formData.color === color
-                        ? 'border-gray-900 scale-110'
-                        : 'border-gray-300 hover:border-gray-400'
+                        ? 'border-[var(--color-text-primary)] scale-110'
+                        : 'border-[var(--color-border-input)] hover:border-[var(--color-border-hover)]'
                     }`}
                     style={{ backgroundColor: color }}
                   />
@@ -347,21 +347,21 @@ export function CategoriesPageClient({
             <DialogTitle>Delete Category</DialogTitle>
             <DialogDescription>
               Are you sure you want to delete this category? This action cannot be undone.
-              <span className="block mt-1 text-red-600">
+              <span className="block mt-1 text-[var(--color-error-text-light)]">
                 Note: You cannot delete a category that has existing transactions.
               </span>
             </DialogDescription>
           </DialogHeader>
           {categoryToDelete && (
-            <div className="my-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
+            <div className="my-4 rounded-lg border border-[var(--color-border-default)] bg-[var(--color-background-secondary)] p-4">
               <div className="flex items-center gap-3">
                 <span
                   className="inline-block h-4 w-4 rounded-full"
                   style={{ backgroundColor: categoryToDelete.color }}
                 />
                 <div className="space-y-1">
-                  <p className="font-medium text-gray-900">{categoryToDelete.name}</p>
-                  <p className="text-sm text-gray-600 capitalize">
+                  <p className="font-medium text-[var(--color-text-primary)]">{categoryToDelete.name}</p>
+                  <p className="text-sm text-[var(--color-text-secondary)] capitalize">
                     {categoryToDelete.type}
                   </p>
                 </div>

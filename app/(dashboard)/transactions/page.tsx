@@ -8,7 +8,7 @@ export default async function TransactionsPage() {
     return (
       <div className="space-y-6">
         <div>
-          <h2 className="text-3xl font-bold text-gray-900">Transactions</h2>
+          <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">Transactions</h2>
         </div>
         <div className="rounded-md bg-red-50 p-4 text-red-800">
           {result.error}

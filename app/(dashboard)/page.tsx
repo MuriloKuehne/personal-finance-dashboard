@@ -31,8 +31,8 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-3xl font-bold text-gray-900">Dashboard</h2>
-        <p className="mt-1 text-sm text-gray-600">
+        <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">Dashboard</h2>
+        <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
           Overview of your financial activity
         </p>
       </div>
@@ -42,26 +42,26 @@ export default async function DashboardPage() {
           title="Total Income"
           value={stats.totalIncome}
           change={stats.monthlyIncome}
-          icon={<TrendingUp className="h-5 w-5 text-green-600" />}
+          icon={<TrendingUp className="h-5 w-5" style={{ color: 'var(--color-success-text-light)' }} />}
           variant="income"
         />
         <StatsCard
           title="Total Expenses"
           value={stats.totalExpenses}
           change={stats.monthlyExpenses}
-          icon={<TrendingDown className="h-5 w-5 text-red-600" />}
+          icon={<TrendingDown className="h-5 w-5 text-[var(--color-error-text-light)] dark:text-white" />}
           variant="expense"
         />
         <StatsCard
           title="Net Balance"
           value={stats.netBalance}
-          icon={<Wallet className="h-5 w-5 text-blue-600" />}
+          icon={<Wallet className="h-5 w-5 text-[var(--color-info-text-light)] dark:text-white" />}
           variant="balance"
         />
         <StatsCard
           title="This Month"
           value={stats.monthlyIncome - stats.monthlyExpenses}
-          icon={<Calendar className="h-5 w-5 text-gray-600" />}
+          icon={<Calendar className="h-5 w-5" style={{ color: 'var(--color-text-secondary)' }} />}
         />
       </div>
 

@@ -1,28 +1,48 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { Button } from '@/components/ui/button'
-import { LogOut } from 'lucide-react'
+interface UserProfile {
+  name: string | null
+}
 
 export const Header = () => {
-  const router = useRouter()
+  const [profile, setProfile] = useState<UserProfile | null>(null)
   const supabase = createClient()
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut()
-    router.push('/login')
-    router.refresh()
-  }
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+
+      if (!user) return
+
+      const { data: profileData } = await supabase
+        .from('user_profiles')
+        .select('name')
+        .eq('id', user.id)
+        .single()
+
+      if (profileData?.name) {
+        // Use profile name if it exists
+        setProfile(profileData)
+      } else {
+        // Fallback to 'User' if no profile name is set
+        setProfile({ name: null })
+      }
+    }
+
+    fetchProfile()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
-    <header className="border-b border-gray-200 bg-white">
-      <div className="flex h-16 items-center justify-between px-6">
-        <h1 className="text-xl font-bold text-gray-900">Personal Finance</h1>
-        <Button variant="ghost" size="sm" onClick={handleLogout}>
-          <LogOut className="mr-2 h-4 w-4" />
-          Logout
-        </Button>
+    <header className="border-b border-[var(--color-border-divider)] bg-[var(--color-background-primary)]">
+      <div className="flex h-16 items-center px-6">
+        <h1 className="text-xl font-bold text-[var(--color-text-primary)]">
+          {profile?.name || 'User'}
+        </h1>
       </div>
     </header>
   )

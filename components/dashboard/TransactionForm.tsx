@@ -111,13 +111,13 @@ export const TransactionForm = ({ transaction, onSuccess }: TransactionFormProps
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       {error && (
-        <div className="rounded-md bg-red-50 p-3 text-sm text-red-800">
+        <div className="rounded-md bg-[var(--color-error-bg)] p-3 text-sm text-[var(--color-error-text)]">
           {error}
         </div>
       )}
 
       <div className="space-y-2">
-        <label htmlFor="type" className="text-sm font-medium text-gray-900">
+        <label htmlFor="type" className="text-sm font-medium text-[var(--color-text-label)]">
           Type
         </label>
         <Select
@@ -132,12 +132,12 @@ export const TransactionForm = ({ transaction, onSuccess }: TransactionFormProps
           <option value="expense">Expense</option>
         </Select>
         {errors.type && (
-          <p className="text-sm text-red-600">{errors.type.message}</p>
+          <p className="text-sm text-[var(--color-error-text-light)]">{errors.type.message}</p>
         )}
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="category_id" className="text-sm font-medium text-gray-900">
+        <label htmlFor="category_id" className="text-sm font-medium text-[var(--color-text-label)]">
           Category
         </label>
         <CategorySelect
@@ -147,12 +147,12 @@ export const TransactionForm = ({ transaction, onSuccess }: TransactionFormProps
           type={transactionType}
         />
         {errors.category_id && (
-          <p className="text-sm text-red-600">{errors.category_id.message}</p>
+          <p className="text-sm text-[var(--color-error-text-light)]">{errors.category_id.message}</p>
         )}
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="amount" className="text-sm font-medium text-gray-900">
+        <label htmlFor="amount" className="text-sm font-medium text-[var(--color-text-label)]">
           Amount
         </label>
         <Input
@@ -163,12 +163,12 @@ export const TransactionForm = ({ transaction, onSuccess }: TransactionFormProps
           {...register('amount')}
         />
         {errors.amount && (
-          <p className="text-sm text-red-600">{errors.amount.message}</p>
+          <p className="text-sm text-[var(--color-error-text-light)]">{errors.amount.message}</p>
         )}
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="description" className="text-sm font-medium text-gray-900">
+        <label htmlFor="description" className="text-sm font-medium text-[var(--color-text-label)]">
           Description
         </label>
         <Input
@@ -178,17 +178,17 @@ export const TransactionForm = ({ transaction, onSuccess }: TransactionFormProps
           {...register('description')}
         />
         {errors.description && (
-          <p className="text-sm text-red-600">{errors.description.message}</p>
+          <p className="text-sm text-[var(--color-error-text-light)]">{errors.description.message}</p>
         )}
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="date" className="text-sm font-medium text-gray-900">
+        <label htmlFor="date" className="text-sm font-medium text-[var(--color-text-label)]">
           Date
         </label>
         <Input id="date" type="date" {...register('date')} />
         {errors.date && (
-          <p className="text-sm text-red-600">{errors.date.message}</p>
+          <p className="text-sm text-[var(--color-error-text-light)]">{errors.date.message}</p>
         )}
       </div>
 

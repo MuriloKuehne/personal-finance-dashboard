@@ -19,17 +19,17 @@ export const StatsCard = ({
   variant = 'default',
 }: StatsCardProps) => {
   const variantStyles = {
-    default: 'border-gray-200',
-    income: 'border-green-200 bg-green-50',
-    expense: 'border-red-200 bg-red-50',
-    balance: 'border-blue-200 bg-blue-50',
+    default: 'border-[var(--color-stats-default-border)] !bg-[var(--color-stats-default-bg)]',
+    income: 'border-[var(--color-stats-income-border)] !bg-[var(--color-stats-income-bg)]',
+    expense: '!bg-[#fecaca] dark:!bg-[#4a1111]',
+    balance: '!bg-[#93c5fd] dark:!bg-[#1e3a8a]',
   }
 
   const valueStyles = {
-    default: 'text-gray-900',
-    income: 'text-green-700',
-    expense: 'text-red-700',
-    balance: 'text-blue-700',
+    default: 'text-[var(--color-stats-default-text)]',
+    income: 'text-[var(--color-stats-income-text)]',
+    expense: '!text-white',
+    balance: '!text-white',
   }
 
   return (
@@ -37,7 +37,7 @@ export const StatsCard = ({
       <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <p className="text-sm font-medium text-gray-600">{title}</p>
+            <p className="text-sm font-medium text-[var(--color-text-secondary)]">{title}</p>
             <p className={cn('text-2xl font-bold', valueStyles[variant])}>
               {formatCurrency(value)}
             </p>
@@ -45,7 +45,7 @@ export const StatsCard = ({
               <p
                 className={cn(
                   'text-sm',
-                  change >= 0 ? 'text-green-600' : 'text-red-600'
+                  change >= 0 ? 'text-[var(--color-success-text-light)]' : 'text-[var(--color-error-text-light)]'
                 )}
               >
                 {change >= 0 ? '+' : ''}
@@ -57,13 +57,15 @@ export const StatsCard = ({
             <div
               className={cn(
                 'rounded-full p-3',
-                variant === 'income' && 'bg-green-100',
-                variant === 'expense' && 'bg-red-100',
-                variant === 'balance' && 'bg-blue-100',
-                variant === 'default' && 'bg-gray-100'
+                variant === 'income' && 'bg-[var(--color-stats-income-icon-bg)]',
+                variant === 'expense' && 'bg-[var(--color-stats-expense-icon-bg)] dark:bg-[#991b1b]',
+                variant === 'balance' && 'bg-[var(--color-stats-balance-icon-bg)] dark:bg-[#1e40af]',
+                variant === 'default' && 'bg-[var(--color-stats-default-icon-bg)]'
               )}
             >
-              {icon}
+              <div className={cn(variant === 'expense' && 'dark:[&_svg]:text-white')}>
+                {icon}
+              </div>
             </div>
           )}
         </div>

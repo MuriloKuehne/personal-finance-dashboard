@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { updateUserProfile } from './actions'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import { User, Moon, Sun, Pencil } from 'lucide-react'
+import { Moon, Sun } from 'lucide-react'
 import type { Database } from '@/lib/types/database'
 
 type UserProfile = Database['public']['Tables']['user_profiles']['Row']
@@ -36,31 +36,21 @@ export function SettingsPageClient({ initialProfile }: SettingsPageClientProps) 
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
-  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark')
 
   const [formData, setFormData] = useState({
     name: initialProfile?.name || '',
     email: initialProfile?.email || '',
-    avatar_url: initialProfile?.avatar_url || '',
     currency: initialProfile?.currency || 'USD',
     language: initialProfile?.language || 'en',
   })
-  const [isHoveringAvatar, setIsHoveringAvatar] = useState(false)
-  const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Load theme from localStorage on mount
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null
-    if (storedTheme) {
-      setTheme(storedTheme)
-      document.documentElement.classList.toggle('dark', storedTheme === 'dark')
-    } else {
-      // Check system preference
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      const systemTheme = prefersDark ? 'dark' : 'light'
-      setTheme(systemTheme)
-      document.documentElement.classList.toggle('dark', systemTheme === 'dark')
-    }
+    const theme = storedTheme || 'dark'
+    setTheme(theme)
+    document.documentElement.classList.toggle('dark', theme === 'dark')
   }, [])
 
   const handleThemeToggle = () => {
@@ -68,24 +58,6 @@ export function SettingsPageClient({ initialProfile }: SettingsPageClientProps) 
     setTheme(newTheme)
     localStorage.setItem('theme', newTheme)
     document.documentElement.classList.toggle('dark', newTheme === 'dark')
-  }
-
-  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      // For now, we'll just store the file name or a placeholder
-      // In a real implementation, you'd upload to Supabase Storage
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        // Store as data URL for now (in production, upload to storage and get URL)
-        setFormData({ ...formData, avatar_url: reader.result as string })
-      }
-      reader.readAsDataURL(file)
-    }
-  }
-
-  const handleAvatarClick = () => {
-    fileInputRef.current?.click()
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -98,7 +70,6 @@ export function SettingsPageClient({ initialProfile }: SettingsPageClientProps) 
       const result = await updateUserProfile({
         name: formData.name || null,
         email: formData.email || null,
-        avatar_url: formData.avatar_url || null,
         currency: formData.currency,
         language: formData.language,
       })
@@ -120,21 +91,21 @@ export function SettingsPageClient({ initialProfile }: SettingsPageClientProps) 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-3xl font-bold text-gray-900">Settings</h2>
-        <p className="mt-1 text-sm text-gray-600">
+        <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">Settings</h2>
+        <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
           Manage your profile and preferences
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {error && (
-          <div className="rounded-md bg-red-50 p-4 text-sm text-red-800">
+          <div className="rounded-md bg-[var(--color-error-bg)] p-4 text-sm text-[var(--color-error-text)]">
             {error}
           </div>
         )}
 
         {success && (
-          <div className="rounded-md bg-green-50 p-4 text-sm text-green-800">
+          <div className="rounded-md bg-[var(--color-success-bg)] p-4 text-sm text-[var(--color-success-text)]">
             {success}
           </div>
         )}
@@ -148,67 +119,33 @@ export function SettingsPageClient({ initialProfile }: SettingsPageClientProps) 
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="flex items-start gap-4">
-              <div
-                className="relative flex-shrink-0 cursor-pointer group"
-                onMouseEnter={() => setIsHoveringAvatar(true)}
-                onMouseLeave={() => setIsHoveringAvatar(false)}
-                onClick={handleAvatarClick}
-              >
-                {formData.avatar_url ? (
-                  <img
-                    src={formData.avatar_url}
-                    alt="Avatar"
-                    className="h-16 w-16 rounded-full object-cover border-2 border-gray-200 transition-opacity group-hover:opacity-75"
-                  />
-                ) : (
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-200 transition-opacity group-hover:opacity-75">
-                    <User className="h-8 w-8 text-gray-400" />
-                  </div>
-                )}
-                {isHoveringAvatar && (
-                  <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50">
-                    <Pencil className="h-5 w-5 text-white" />
-                  </div>
-                )}
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={handleAvatarChange}
-                  className="hidden"
-                />
-              </div>
-              <div className="flex-1 space-y-4">
-                <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium text-gray-900">
-                    Name
-                  </label>
-                  <Input
-                    id="name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Enter your name"
-                  />
-                </div>
+            <div className="space-y-2">
+              <label htmlFor="name" className="text-sm font-medium text-[var(--color-text-label)]">
+                Name
+              </label>
+              <Input
+                id="name"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder="Enter your name"
+              />
+            </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium text-gray-900">
-                    Email
-                  </label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    readOnly
-                    disabled
-                    className="bg-gray-50 cursor-not-allowed"
-                  />
-                  <p className="text-xs text-gray-500">
-                    Email cannot be changed here. Contact support to change your email.
-                  </p>
-                </div>
-              </div>
+            <div className="space-y-2">
+              <label htmlFor="email" className="text-sm font-medium text-[var(--color-text-label)]">
+                Email
+              </label>
+              <Input
+                id="email"
+                type="email"
+                value={formData.email}
+                readOnly
+                disabled
+                className="bg-[var(--color-background-disabled)] cursor-not-allowed"
+              />
+              <p className="text-xs text-[var(--color-text-muted)]">
+                Email cannot be changed here. Contact support to change your email.
+              </p>
             </div>
           </CardContent>
         </Card>
@@ -223,7 +160,7 @@ export function SettingsPageClient({ initialProfile }: SettingsPageClientProps) 
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <label htmlFor="currency" className="text-sm font-medium text-gray-900">
+              <label htmlFor="currency" className="text-sm font-medium text-[var(--color-text-label)]">
                 Currency
               </label>
               <Select
@@ -240,7 +177,7 @@ export function SettingsPageClient({ initialProfile }: SettingsPageClientProps) 
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="language" className="text-sm font-medium text-gray-900">
+              <label htmlFor="language" className="text-sm font-medium text-[var(--color-text-label)]">
                 Language
               </label>
               <Select
@@ -270,15 +207,15 @@ export function SettingsPageClient({ initialProfile }: SettingsPageClientProps) 
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 {theme === 'dark' ? (
-                  <Moon className="h-5 w-5 text-gray-600" />
+                  <Moon className="h-5 w-5 text-[var(--color-text-secondary)]" />
                 ) : (
-                  <Sun className="h-5 w-5 text-gray-600" />
+                  <Sun className="h-5 w-5 text-[var(--color-text-secondary)]" />
                 )}
                 <div>
-                  <p className="text-sm font-medium text-gray-900">
+                  <p className="text-sm font-medium text-[var(--color-text-primary)]">
                     {theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
                   </p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-[var(--color-text-muted)]">
                     {theme === 'dark'
                       ? 'Dark theme is active'
                       : 'Light theme is active'}
@@ -289,7 +226,6 @@ export function SettingsPageClient({ initialProfile }: SettingsPageClientProps) 
                 type="button"
                 variant="outline"
                 onClick={handleThemeToggle}
-                className="text-gray-900 border-gray-300 hover:bg-gray-50"
               >
                 {theme === 'dark' ? (
                   <>

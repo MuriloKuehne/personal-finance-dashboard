@@ -17,10 +17,11 @@ export const Dialog = ({ open, onOpenChange, children }: DialogProps) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div
-        className="fixed inset-0 bg-black/50"
+        className="fixed inset-0"
+        style={{ backgroundColor: 'var(--color-background-overlay)' }}
         onClick={() => onOpenChange(false)}
       />
-      <div className="relative z-50 w-full max-w-lg rounded-lg bg-white shadow-lg">
+      <div className="relative z-50 w-full max-w-lg rounded-lg bg-[var(--color-background-card)] shadow-lg">
         {children}
       </div>
     </div>
@@ -74,7 +75,7 @@ interface DialogTitleProps {
 
 export const DialogTitle = ({ children, className }: DialogTitleProps) => {
   return (
-    <h2 className={cn('text-2xl font-semibold text-gray-900', className)}>
+    <h2 className={cn('text-2xl font-semibold text-[var(--color-text-primary)]', className)}>
       {children}
     </h2>
   )
@@ -90,7 +91,7 @@ export const DialogDescription = ({
   className,
 }: DialogDescriptionProps) => {
   return (
-    <p className={cn('text-sm text-gray-500 mt-2', className)}>
+    <p className={cn('text-sm text-[var(--color-text-muted)] mt-2', className)}>
       {children}
     </p>
   )

@@ -91,6 +91,47 @@ export type Database = {
           },
         ]
       }
+      user_profiles: {
+        Row: {
+          id: string
+          name: string | null
+          email: string | null
+          avatar_url: string | null
+          currency: string
+          language: string
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id: string
+          name?: string | null
+          email?: string | null
+          avatar_url?: string | null
+          currency?: string
+          language?: string
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          name?: string | null
+          email?: string | null
+          avatar_url?: string | null
+          currency?: string
+          language?: string
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_profiles_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

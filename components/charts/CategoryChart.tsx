@@ -15,7 +15,7 @@ const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'
 export const CategoryChart = ({ data }: CategoryChartProps) => {
   if (data.length === 0) {
     return (
-      <div className="flex items-center justify-center h-[300px] text-gray-500">
+      <div className="flex items-center justify-center h-[300px] text-[var(--color-text-muted)]">
         No data available
       </div>
     )
@@ -52,12 +52,12 @@ export const CategoryChart = ({ data }: CategoryChartProps) => {
               }).format(value)
             }
             contentStyle={{
-              backgroundColor: '#fff',
-              border: '1px solid #e5e7eb',
+              backgroundColor: 'var(--color-background-card)',
+              border: '1px solid var(--color-border-default)',
               borderRadius: '6px',
             }}
             labelStyle={{
-              color: '#171717',
+              color: 'var(--color-text-primary)',
               fontWeight: 600,
             }}
           />

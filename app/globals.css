@@ -60,14 +60,14 @@
   --color-success-bg: #f0fdf4;
   --color-success-bg-light: #dcfce7;
   --color-success-text: #15803d;
-  --color-success-text-light: #16a34a;
+  --color-success-text-light: #15803d;
   --color-success-border: #bbf7d0;
 
   /* Status - Error (Red) */
   --color-error-bg: #fef2f2;
   --color-error-bg-light: #fee2e2;
   --color-error-text: #991b1b;
-  --color-error-text-light: #dc2626;
+  --color-error-text-light: #b91c1c;
   --color-error-border: #fecaca;
 
   /* Status - Info (Blue) */
@@ -84,20 +84,20 @@
   --color-nav-hover-bg: #f9fafb;
 
   /* Stats Cards */
-  --color-stats-income-bg: #f0fdf4;
+  --color-stats-income-bg: #dcfce7;
   --color-stats-income-border: #bbf7d0;
   --color-stats-income-text: #15803d;
   --color-stats-income-icon-bg: #dcfce7;
 
-  --color-stats-expense-bg: #fef2f2;
+  --color-stats-expense-bg: #fecaca;
   --color-stats-expense-border: #fecaca;
-  --color-stats-expense-text: #991b1b;
-  --color-stats-expense-icon-bg: #fee2e2;
+  --color-stats-expense-text: #ffffff;
+  --color-stats-expense-icon-bg: #fca5a5;
 
-  --color-stats-balance-bg: #eff6ff;
-  --color-stats-balance-border: #bfdbfe;
-  --color-stats-balance-text: #1e40af;
-  --color-stats-balance-icon-bg: #dbeafe;
+  --color-stats-balance-bg: #93c5fd;
+  --color-stats-balance-border: #60a5fa;
+  --color-stats-balance-text: #ffffff;
+  --color-stats-balance-icon-bg: #60a5fa;
 
   --color-stats-default-bg: #ffffff;
   --color-stats-default-border: #e5e7eb;
@@ -186,8 +186,8 @@
   --color-info-border: #1e40af;
 
   /* Navigation */
-  --color-nav-active-bg: #1e3a8a;
-  --color-nav-active-text: #60a5fa;
+  --color-nav-active-bg: #2563eb;
+  --color-nav-active-text: #ffffff;
   --color-nav-inactive-text: #a3a3a3;
   --color-nav-hover-bg: #2a2a2a;
 
@@ -197,14 +197,14 @@
   --color-stats-income-text: #4ade80;
   --color-stats-income-icon-bg: #14532d;
 
-  --color-stats-expense-bg: #7f1d1d;
+  --color-stats-expense-bg: #4a1111;
   --color-stats-expense-border: #991b1b;
   --color-stats-expense-text: #f87171;
   --color-stats-expense-icon-bg: #991b1b;
 
   --color-stats-balance-bg: #1e3a8a;
   --color-stats-balance-border: #1e40af;
-  --color-stats-balance-text: #60a5fa;
+  --color-stats-balance-text: #ffffff;
   --color-stats-balance-icon-bg: #1e40af;
 
   --color-stats-default-bg: #1f1f1f;

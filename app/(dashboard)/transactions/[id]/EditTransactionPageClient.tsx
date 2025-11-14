@@ -36,8 +36,8 @@ export function EditTransactionPageClient({
           <X className="h-4 w-4" />
         </Button>
         <div>
-          <h2 className="text-3xl font-bold text-gray-900">Edit Transaction</h2>
-          <p className="mt-1 text-sm text-gray-600">
+          <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">Edit Transaction</h2>
+          <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
             Update transaction details
           </p>
         </div>
