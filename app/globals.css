@@ -1,8 +1,219 @@
 @import "tailwindcss";
 
 :root {
+  /* Legacy variables for backward compatibility */
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Background Colors */
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f9fafb;
+  --color-background-card: #ffffff;
+  --color-background-input: #ffffff;
+  --color-background-overlay: rgba(0, 0, 0, 0.5);
+  --color-background-hover: #f9fafb;
+  --color-background-active: #f3f4f6;
+  --color-background-disabled: #f9fafb;
+
+  /* Text Colors */
+  --color-text-primary: #111827;
+  --color-text-secondary: #4b5563;
+  --color-text-tertiary: #6b7280;
+  --color-text-muted: #9ca3af;
+  --color-text-label: #111827;
+  --color-text-link: #2563eb;
+  --color-text-inverse: #ffffff;
+
+  /* Border Colors */
+  --color-border-default: #e5e7eb;
+  --color-border-input: #d1d5db;
+  --color-border-divider: #e5e7eb;
+  --color-border-focus: #2563eb;
+  --color-border-hover: #9ca3af;
+
+  /* Button - Primary */
+  --color-button-primary-bg: #2563eb;
+  --color-button-primary-text: #ffffff;
+  --color-button-primary-hover: #1d4ed8;
+  --color-button-primary-focus: #2563eb;
+
+  /* Button - Outline */
+  --color-button-outline-bg: #ffffff;
+  --color-button-outline-text: #374151;
+  --color-button-outline-border: #d1d5db;
+  --color-button-outline-hover: #f9fafb;
+  --color-button-outline-focus: #2563eb;
+
+  /* Button - Ghost */
+  --color-button-ghost-bg: transparent;
+  --color-button-ghost-text: #374151;
+  --color-button-ghost-hover: #f3f4f6;
+  --color-button-ghost-focus: #2563eb;
+
+  /* Button - Destructive */
+  --color-button-destructive-bg: #dc2626;
+  --color-button-destructive-text: #ffffff;
+  --color-button-destructive-hover: #b91c1c;
+  --color-button-destructive-focus: #dc2626;
+
+  /* Status - Success (Green) */
+  --color-success-bg: #f0fdf4;
+  --color-success-bg-light: #dcfce7;
+  --color-success-text: #15803d;
+  --color-success-text-light: #16a34a;
+  --color-success-border: #bbf7d0;
+
+  /* Status - Error (Red) */
+  --color-error-bg: #fef2f2;
+  --color-error-bg-light: #fee2e2;
+  --color-error-text: #991b1b;
+  --color-error-text-light: #dc2626;
+  --color-error-border: #fecaca;
+
+  /* Status - Info (Blue) */
+  --color-info-bg: #eff6ff;
+  --color-info-bg-light: #dbeafe;
+  --color-info-text: #1e40af;
+  --color-info-text-light: #2563eb;
+  --color-info-border: #bfdbfe;
+
+  /* Navigation */
+  --color-nav-active-bg: #eff6ff;
+  --color-nav-active-text: #1d4ed8;
+  --color-nav-inactive-text: #374151;
+  --color-nav-hover-bg: #f9fafb;
+
+  /* Stats Cards */
+  --color-stats-income-bg: #f0fdf4;
+  --color-stats-income-border: #bbf7d0;
+  --color-stats-income-text: #15803d;
+  --color-stats-income-icon-bg: #dcfce7;
+
+  --color-stats-expense-bg: #fef2f2;
+  --color-stats-expense-border: #fecaca;
+  --color-stats-expense-text: #991b1b;
+  --color-stats-expense-icon-bg: #fee2e2;
+
+  --color-stats-balance-bg: #eff6ff;
+  --color-stats-balance-border: #bfdbfe;
+  --color-stats-balance-text: #1e40af;
+  --color-stats-balance-icon-bg: #dbeafe;
+
+  --color-stats-default-bg: #ffffff;
+  --color-stats-default-border: #e5e7eb;
+  --color-stats-default-text: #111827;
+  --color-stats-default-icon-bg: #f3f4f6;
+
+  /* Shadow */
+  --color-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.dark {
+  /* Dark theme variables */
+  --background: #0f0f0f;
+  --foreground: #f5f5f5;
+
+  /* Background Colors */
+  --color-background-primary: #0f0f0f;
+  --color-background-secondary: #1a1a1a;
+  --color-background-card: #1f1f1f;
+  --color-background-input: #1f1f1f;
+  --color-background-overlay: rgba(0, 0, 0, 0.8);
+  --color-background-hover: #2a2a2a;
+  --color-background-active: #262626;
+  --color-background-disabled: #1a1a1a;
+
+  /* Text Colors */
+  --color-text-primary: #f5f5f5;
+  --color-text-secondary: #d4d4d4;
+  --color-text-tertiary: #a3a3a3;
+  --color-text-muted: #737373;
+  --color-text-label: #f5f5f5;
+  --color-text-link: #3b82f6;
+  --color-text-inverse: #0f0f0f;
+
+  /* Border Colors */
+  --color-border-default: #3a3a3a;
+  --color-border-input: #404040;
+  --color-border-divider: #3a3a3a;
+  --color-border-focus: #3b82f6;
+  --color-border-hover: #525252;
+
+  /* Button - Primary */
+  --color-button-primary-bg: #2563eb;
+  --color-button-primary-text: #ffffff;
+  --color-button-primary-hover: #1e40af;
+  --color-button-primary-focus: #3b82f6;
+
+  /* Button - Outline */
+  --color-button-outline-bg: #1f1f1f;
+  --color-button-outline-text: #d4d4d4;
+  --color-button-outline-border: #404040;
+  --color-button-outline-hover: #2a2a2a;
+  --color-button-outline-focus: #3b82f6;
+
+  /* Button - Ghost */
+  --color-button-ghost-bg: transparent;
+  --color-button-ghost-text: #d4d4d4;
+  --color-button-ghost-hover: #2a2a2a;
+  --color-button-ghost-focus: #3b82f6;
+
+  /* Button - Destructive */
+  --color-button-destructive-bg: #dc2626;
+  --color-button-destructive-text: #ffffff;
+  --color-button-destructive-hover: #b91c1c;
+  --color-button-destructive-focus: #ef4444;
+
+  /* Status - Success (Green) */
+  --color-success-bg: #052e16;
+  --color-success-bg-light: #14532d;
+  --color-success-text: #4ade80;
+  --color-success-text-light: #22c55e;
+  --color-success-border: #166534;
+
+  /* Status - Error (Red) */
+  --color-error-bg: #7f1d1d;
+  --color-error-bg-light: #991b1b;
+  --color-error-text: #f87171;
+  --color-error-text-light: #ef4444;
+  --color-error-border: #991b1b;
+
+  /* Status - Info (Blue) */
+  --color-info-bg: #1e3a8a;
+  --color-info-bg-light: #1e40af;
+  --color-info-text: #60a5fa;
+  --color-info-text-light: #3b82f6;
+  --color-info-border: #1e40af;
+
+  /* Navigation */
+  --color-nav-active-bg: #1e3a8a;
+  --color-nav-active-text: #60a5fa;
+  --color-nav-inactive-text: #a3a3a3;
+  --color-nav-hover-bg: #2a2a2a;
+
+  /* Stats Cards */
+  --color-stats-income-bg: #052e16;
+  --color-stats-income-border: #166534;
+  --color-stats-income-text: #4ade80;
+  --color-stats-income-icon-bg: #14532d;
+
+  --color-stats-expense-bg: #7f1d1d;
+  --color-stats-expense-border: #991b1b;
+  --color-stats-expense-text: #f87171;
+  --color-stats-expense-icon-bg: #991b1b;
+
+  --color-stats-balance-bg: #1e3a8a;
+  --color-stats-balance-border: #1e40af;
+  --color-stats-balance-text: #60a5fa;
+  --color-stats-balance-icon-bg: #1e40af;
+
+  --color-stats-default-bg: #1f1f1f;
+  --color-stats-default-border: #3a3a3a;
+  --color-stats-default-text: #f5f5f5;
+  --color-stats-default-icon-bg: #2a2a2a;
+
+  /* Shadow */
+  --color-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
 }
 
 @theme inline {
@@ -12,15 +223,8 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
   font-family: Arial, Helvetica, sans-serif;
 }
