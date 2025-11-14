@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { updateUserProfile } from './actions'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Select } from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Moon, Sun } from 'lucide-react'
 import type { Database } from '@/lib/types/database'
@@ -16,33 +15,15 @@ interface SettingsPageClientProps {
   initialProfile: UserProfile | null
 }
 
-const CURRENCIES = [
-  { value: 'USD', label: 'US Dollar ($)', symbol: '$' },
-  { value: 'BRL', label: 'Brazilian Real (R$)', symbol: 'R$' },
-  { value: 'EUR', label: 'Euro (€)', symbol: '€' },
-  { value: 'GBP', label: 'British Pound (£)', symbol: '£' },
-]
-
-const LANGUAGES = [
-  { value: 'en', label: 'English' },
-  { value: 'pt-BR', label: 'Portuguese (Brazil)' },
-  { value: 'es', label: 'Spanish' },
-  { value: 'fr', label: 'French' },
-  { value: 'de', label: 'German' },
-]
-
 export function SettingsPageClient({ initialProfile }: SettingsPageClientProps) {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
   const [theme, setTheme] = useState<'light' | 'dark'>('dark')
 
   const [formData, setFormData] = useState({
     name: initialProfile?.name || '',
     email: initialProfile?.email || '',
-    currency: initialProfile?.currency || 'USD',
-    language: initialProfile?.language || 'en',
   })
 
   // Load theme from localStorage on mount
@@ -63,24 +44,22 @@ export function SettingsPageClient({ initialProfile }: SettingsPageClientProps) 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
-    setSuccess(null)
     setIsLoading(true)
 
     try {
       const result = await updateUserProfile({
         name: formData.name || null,
         email: formData.email || null,
-        currency: formData.currency,
-        language: formData.language,
       })
 
       if (result.error) {
         setError(result.error)
+        setIsLoading(false)
         return
       }
 
-      setSuccess('Settings saved successfully!')
-      router.refresh()
+      // Redirect to dashboard immediately after successful save
+      router.push('/')
     } catch (err) {
       setError('An unexpected error occurred')
     } finally {
@@ -101,12 +80,6 @@ export function SettingsPageClient({ initialProfile }: SettingsPageClientProps) 
         {error && (
           <div className="rounded-md bg-[var(--color-error-bg)] p-4 text-sm text-[var(--color-error-text)]">
             {error}
-          </div>
-        )}
-
-        {success && (
-          <div className="rounded-md bg-[var(--color-success-bg)] p-4 text-sm text-[var(--color-success-text)]">
-            {success}
           </div>
         )}
 
@@ -146,51 +119,6 @@ export function SettingsPageClient({ initialProfile }: SettingsPageClientProps) 
               <p className="text-xs text-[var(--color-text-muted)]">
                 Email cannot be changed here. Contact support to change your email.
               </p>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Preferences Section */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Preferences</CardTitle>
-            <CardDescription>
-              Customize your application settings
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <label htmlFor="currency" className="text-sm font-medium text-[var(--color-text-label)]">
-                Currency
-              </label>
-              <Select
-                id="currency"
-                value={formData.currency}
-                onChange={(e) => setFormData({ ...formData, currency: e.target.value })}
-              >
-                {CURRENCIES.map((currency) => (
-                  <option key={currency.value} value={currency.value}>
-                    {currency.label}
-                  </option>
-                ))}
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <label htmlFor="language" className="text-sm font-medium text-[var(--color-text-label)]">
-                Language
-              </label>
-              <Select
-                id="language"
-                value={formData.language}
-                onChange={(e) => setFormData({ ...formData, language: e.target.value })}
-              >
-                {LANGUAGES.map((language) => (
-                  <option key={language.value} value={language.value}>
-                    {language.label}
-                  </option>
-                ))}
-              </Select>
             </div>
           </CardContent>
         </Card>
