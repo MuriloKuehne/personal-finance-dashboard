@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SignupForm } from '@/components/auth/SignupForm'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Sign Up',
   description: 'Create a new account for Personal Finance Dashboard and start managing your finances today.',
