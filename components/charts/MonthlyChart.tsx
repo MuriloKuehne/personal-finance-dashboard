@@ -21,12 +21,21 @@ export const MonthlyChart = ({ data }: MonthlyChartProps) => {
   }))
 
   return (
-    <div className="w-full h-[400px] min-h-[400px]">
+    <div className="w-full h-[300px] min-h-[300px] md:h-[400px] md:min-h-[400px]">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={chartData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="month" />
-          <YAxis />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border-divider)" />
+          <XAxis 
+            dataKey="month" 
+            tick={{ fill: 'var(--color-text-secondary)', fontSize: 12 }}
+            angle={-45}
+            textAnchor="end"
+            height={60}
+          />
+          <YAxis 
+            tick={{ fill: 'var(--color-text-secondary)', fontSize: 12 }}
+            width={60}
+          />
           <Tooltip
             formatter={(value: number) =>
               new Intl.NumberFormat('en-US', {
@@ -35,16 +44,22 @@ export const MonthlyChart = ({ data }: MonthlyChartProps) => {
               }).format(value)
             }
             contentStyle={{
-              backgroundColor: '#fff',
-              border: '1px solid #e5e7eb',
+              backgroundColor: 'var(--color-background-card)',
+              border: '1px solid var(--color-border-default)',
               borderRadius: '6px',
+              color: 'var(--color-text-primary)',
             }}
             labelStyle={{
-              color: '#171717',
+              color: 'var(--color-text-primary)',
               fontWeight: 600,
             }}
+            itemStyle={{
+              color: 'var(--color-text-primary)',
+            }}
           />
-          <Legend />
+          <Legend 
+            wrapperStyle={{ color: 'var(--color-text-primary)' }}
+          />
           <Bar dataKey="Income" fill="#10b981" />
           <Bar dataKey="Expense" fill="#ef4444" />
         </BarChart>

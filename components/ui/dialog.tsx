@@ -15,13 +15,13 @@ export const Dialog = ({ open, onOpenChange, children }: DialogProps) => {
   if (!open) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-0 md:p-4">
       <div
         className="fixed inset-0"
         style={{ backgroundColor: 'var(--color-background-overlay)' }}
         onClick={() => onOpenChange(false)}
       />
-      <div className="relative z-50 w-full max-w-lg rounded-lg bg-[var(--color-background-card)] shadow-lg">
+      <div className="relative z-50 w-full h-full md:h-auto md:max-w-lg md:rounded-lg bg-[var(--color-background-card)] shadow-lg md:max-h-[90vh] md:overflow-y-auto">
         {children}
       </div>
     </div>
@@ -40,11 +40,11 @@ export const DialogContent = ({
   className,
 }: DialogContentProps) => {
   return (
-    <div className={cn('p-6', className)}>
+    <div className={cn('p-4 md:p-6', className)}>
       <Button
         variant="ghost"
         size="sm"
-        className="absolute right-4 top-4"
+        className="absolute right-2 top-2 md:right-4 md:top-4 min-h-[44px] min-w-[44px]"
         onClick={onClose}
         aria-label="Close"
       >

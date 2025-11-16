@@ -19,12 +19,18 @@ export const WeeklyChart = ({ data }: WeeklyChartProps) => {
   }))
 
   return (
-    <div className="w-full h-[300px] min-h-[300px]">
+    <div className="w-full h-[250px] min-h-[250px] md:h-[300px] md:min-h-[300px]">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={chartData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="day" />
-          <YAxis />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border-divider)" />
+          <XAxis 
+            dataKey="day" 
+            tick={{ fill: 'var(--color-text-secondary)', fontSize: 12 }}
+          />
+          <YAxis 
+            tick={{ fill: 'var(--color-text-secondary)', fontSize: 12 }}
+            width={60}
+          />
           <Tooltip
             formatter={(value: number) =>
               new Intl.NumberFormat('en-US', {
@@ -33,16 +39,22 @@ export const WeeklyChart = ({ data }: WeeklyChartProps) => {
               }).format(value)
             }
             contentStyle={{
-              backgroundColor: '#fff',
-              border: '1px solid #e5e7eb',
+              backgroundColor: 'var(--color-background-card)',
+              border: '1px solid var(--color-border-default)',
               borderRadius: '6px',
+              color: 'var(--color-text-primary)',
             }}
             labelStyle={{
-              color: '#171717',
+              color: 'var(--color-text-primary)',
               fontWeight: 600,
             }}
+            itemStyle={{
+              color: 'var(--color-text-primary)',
+            }}
           />
-          <Legend />
+          <Legend 
+            wrapperStyle={{ color: 'var(--color-text-primary)' }}
+          />
           <Line
             type="monotone"
             dataKey="Income"

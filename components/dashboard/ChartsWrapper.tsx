@@ -7,7 +7,7 @@ const MonthlyChartDynamic = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="h-[400px] flex items-center justify-center text-[var(--color-text-secondary)]">
+      <div className="h-[300px] md:h-[400px] flex items-center justify-center text-[var(--color-text-secondary)]">
         Loading chart...
       </div>
     ),
@@ -19,7 +19,7 @@ const WeeklyChartDynamic = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="h-[300px] flex items-center justify-center text-[var(--color-text-secondary)]">
+      <div className="h-[250px] md:h-[300px] flex items-center justify-center text-[var(--color-text-secondary)]">
         Loading chart...
       </div>
     ),

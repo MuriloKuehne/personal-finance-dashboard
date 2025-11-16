@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { TransactionList } from '@/components/dashboard/TransactionList'
 import { TransactionForm } from '@/components/dashboard/TransactionForm'
 import { Button } from '@/components/ui/button'
@@ -19,18 +20,19 @@ interface TransactionsPageClientProps {
 export function TransactionsPageClient({
   transactions: initialTransactions,
 }: TransactionsPageClientProps) {
+  const router = useRouter()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 md:space-y-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">Transactions</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)]">Transactions</h2>
           <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
             Manage your income and expenses
           </p>
         </div>
-        <Button onClick={() => setIsDialogOpen(true)}>
+        <Button onClick={() => setIsDialogOpen(true)} className="w-full sm:w-auto min-h-[44px]">
           <Plus className="mr-2 h-4 w-4" />
           Add Transaction
         </Button>
@@ -46,7 +48,7 @@ export function TransactionsPageClient({
           <TransactionForm
             onSuccess={() => {
               setIsDialogOpen(false)
-              window.location.reload()
+              router.refresh()
             }}
           />
         </DialogContent>

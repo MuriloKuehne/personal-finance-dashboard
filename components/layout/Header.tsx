@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { HeaderClient } from './HeaderClient'
 
 interface UserProfile {
   name: string | null
@@ -22,14 +23,6 @@ export const Header = async () => {
     profile = profileData || { name: null }
   }
 
-  return (
-    <header className="border-b border-[var(--color-border-divider)] bg-[var(--color-background-primary)]">
-      <div className="flex h-16 items-center px-6">
-        <h1 className="text-xl font-bold text-[var(--color-text-primary)]">
-          {profile?.name || 'User'}
-        </h1>
-      </div>
-    </header>
-  )
+  return <HeaderClient userName={profile?.name || null} />
 }
 

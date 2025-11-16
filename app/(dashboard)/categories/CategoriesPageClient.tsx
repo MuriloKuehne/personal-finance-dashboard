@@ -55,6 +55,7 @@ export function CategoriesPageClient({
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [categoryToDelete, setCategoryToDelete] = useState<Category | null>(null)
   const [isDeleting, setIsDeleting] = useState(false)
+  const [deleteError, setDeleteError] = useState<string | null>(null)
 
   const handleOpenDialog = (category?: Category) => {
     if (category) {
@@ -116,6 +117,7 @@ export function CategoriesPageClient({
 
   const handleDeleteClick = (category: Category) => {
     setCategoryToDelete(category)
+    setDeleteError(null)
     setDeleteDialogOpen(true)
   }
 
@@ -123,44 +125,47 @@ export function CategoriesPageClient({
     if (!categoryToDelete) return
 
     setIsDeleting(true)
+    setDeleteError(null)
     const result = await deleteCategory(categoryToDelete.id)
     setIsDeleting(false)
 
     if (result.error) {
-      alert(result.error)
+      setDeleteError(result.error)
       return
     }
 
     setCategories(categories.filter((c) => c.id !== categoryToDelete.id))
     setDeleteDialogOpen(false)
     setCategoryToDelete(null)
+    setDeleteError(null)
     router.refresh()
   }
 
   const handleDeleteCancel = () => {
     setDeleteDialogOpen(false)
     setCategoryToDelete(null)
+    setDeleteError(null)
   }
 
   const incomeCategories = categories.filter((c) => c.type === 'income')
   const expenseCategories = categories.filter((c) => c.type === 'expense')
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 md:space-y-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">Categories</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)]">Categories</h2>
           <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
             Organize your transactions with categories
           </p>
         </div>
-        <Button onClick={() => handleOpenDialog()}>
+        <Button onClick={() => handleOpenDialog()} className="w-full sm:w-auto min-h-[44px]">
           <Plus className="mr-2 h-4 w-4" />
           Add Category
         </Button>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2">
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">Income Categories</h3>
           {incomeCategories.length === 0 ? (
@@ -352,6 +357,11 @@ export function CategoriesPageClient({
               </span>
             </DialogDescription>
           </DialogHeader>
+          {deleteError && (
+            <div className="my-4 rounded-md bg-[var(--color-error-bg)] p-3 text-sm text-[var(--color-error-text)]">
+              {deleteError}
+            </div>
+          )}
           {categoryToDelete && (
             <div className="my-4 rounded-lg border border-[var(--color-border-default)] bg-[var(--color-background-secondary)] p-4">
               <div className="flex items-center gap-3">

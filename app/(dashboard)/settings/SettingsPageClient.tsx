@@ -68,9 +68,9 @@ export function SettingsPageClient({ initialProfile }: SettingsPageClientProps) 
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       <div>
-        <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">Settings</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)]">Settings</h2>
         <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
           Manage your profile and preferences
         </p>

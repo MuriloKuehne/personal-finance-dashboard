@@ -39,15 +39,15 @@ export default async function DashboardPage() {
   const recentTransactions = transactionsResult.data?.slice(0, 10) || []
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       <div>
-        <h2 className="text-3xl font-bold text-[var(--color-text-primary)]">Dashboard</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)]">Dashboard</h2>
         <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
           Overview of your financial activity
         </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <StatsCard
           title="Total Income"
           value={stats.totalIncome}
@@ -75,14 +75,14 @@ export default async function DashboardPage() {
         />
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Monthly Summary</CardTitle>
           </CardHeader>
           <CardContent>
             <Suspense fallback={
-              <div className="h-[400px] flex items-center justify-center text-[var(--color-text-secondary)]">
+              <div className="h-[300px] md:h-[400px] flex items-center justify-center text-[var(--color-text-secondary)]">
                 Loading...
               </div>
             }>
@@ -97,7 +97,7 @@ export default async function DashboardPage() {
           </CardHeader>
           <CardContent>
             <Suspense fallback={
-              <div className="h-[300px] flex items-center justify-center text-[var(--color-text-secondary)]">
+              <div className="h-[250px] md:h-[300px] flex items-center justify-center text-[var(--color-text-secondary)]">
                 Loading...
               </div>
             }>

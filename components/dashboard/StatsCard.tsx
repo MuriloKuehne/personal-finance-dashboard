@@ -34,17 +34,17 @@ export const StatsCard = ({
 
   return (
     <Card className={cn(variantStyles[variant])}>
-      <CardContent className="p-6">
+      <CardContent className="p-4 md:p-6">
         <div className="flex items-center justify-between">
-          <div className="space-y-1">
+          <div className="space-y-1 flex-1 min-w-0">
             <p className="text-sm font-medium text-[var(--color-text-secondary)]">{title}</p>
-            <p className={cn('text-2xl font-bold', valueStyles[variant])}>
+            <p className={cn('text-xl md:text-2xl font-bold truncate', valueStyles[variant])}>
               {formatCurrency(value)}
             </p>
             {change !== undefined && (
               <p
                 className={cn(
-                  'text-sm',
+                  'text-xs md:text-sm',
                   change >= 0 ? 'text-[var(--color-success-text-light)]' : 'text-[var(--color-error-text-light)]'
                 )}
               >
@@ -56,7 +56,7 @@ export const StatsCard = ({
           {icon && (
             <div
               className={cn(
-                'rounded-full p-3',
+                'rounded-full p-2 md:p-3 flex-shrink-0',
                 variant === 'income' && 'bg-[var(--color-stats-income-icon-bg)]',
                 variant === 'expense' && 'bg-[var(--color-stats-expense-icon-bg)]',
                 variant === 'balance' && 'bg-[var(--color-stats-balance-icon-bg)]',
