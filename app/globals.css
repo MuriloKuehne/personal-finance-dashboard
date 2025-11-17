@@ -227,3 +227,26 @@ body {
   color: var(--color-text-primary);
   font-family: var(--font-tasa-orbiter), sans-serif;
 }
+
+/* Remove calendar icon from date input and make entire input clickable */
+.date-input-no-icon {
+  cursor: pointer;
+  position: relative;
+}
+
+.date-input-no-icon::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+.date-input-no-icon::-webkit-inner-spin-button,
+.date-input-no-icon::-webkit-outer-spin-button {
+  display: none;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.date-input-no-icon::-moz-calendar-picker-indicator {
+  display: none;
+}

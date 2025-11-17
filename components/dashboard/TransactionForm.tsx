@@ -186,7 +186,12 @@ export const TransactionForm = ({ transaction, onSuccess }: TransactionFormProps
         <label htmlFor="date" className="text-sm font-medium text-[var(--color-text-label)]">
           Date
         </label>
-        <Input id="date" type="date" {...register('date')} />
+        <Input 
+          id="date" 
+          type="date" 
+          className="date-input-no-icon cursor-pointer" 
+          {...register('date')} 
+        />
         {errors.date && (
           <p className="text-sm text-[var(--color-error-text-light)]">{errors.date.message}</p>
         )}
