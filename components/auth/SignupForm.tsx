@@ -44,7 +44,7 @@ export const SignupForm = () => {
       setError(null)
       setIsLoading(true)
 
-      const { error } = await supabase.auth.signUp({
+      const { data: authData, error } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
       })
@@ -54,8 +54,19 @@ export const SignupForm = () => {
         return
       }
 
-      router.push('/')
-      router.refresh()
+      // If email confirmation is required, session might be null
+      // In that case, we should show a message instead of redirecting
+      if (authData?.session) {
+        // Wait a moment for the session to be properly set in cookies
+        await new Promise((resolve) => setTimeout(resolve, 100))
+        router.push('/')
+        router.refresh()
+      } else {
+        // Email confirmation required - show success message
+        setError(null)
+        // You might want to show a success message here instead
+        router.push('/login?message=Please check your email to confirm your account')
+      }
     } catch (err) {
       setError('An unexpected error occurred')
     } finally {

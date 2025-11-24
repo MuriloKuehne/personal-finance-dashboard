@@ -13,10 +13,10 @@ export const signInWithSSO = async (
 ): Promise<{ error: SSOError | null }> => {
   try {
     const supabase = createClient()
-    const redirectUrl = new URL(
-      '/api/auth/callback',
-      window.location.origin
-    ).toString()
+    
+    // Use NEXT_PUBLIC_SITE_URL if available, otherwise fall back to window.location.origin
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin
+    const redirectUrl = new URL('/api/auth/callback', siteUrl).toString()
 
     const { error } = await supabase.auth.signInWithOAuth({
       provider,

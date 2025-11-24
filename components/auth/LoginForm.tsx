@@ -38,7 +38,7 @@ export const LoginForm = () => {
       setError(null)
       setIsLoading(true)
 
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data: authData, error } = await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
       })
@@ -48,8 +48,14 @@ export const LoginForm = () => {
         return
       }
 
-      router.push('/')
-      router.refresh()
+      if (authData?.session) {
+        // Wait a moment for the session to be properly set in cookies
+        await new Promise((resolve) => setTimeout(resolve, 100))
+        router.push('/')
+        router.refresh()
+      } else {
+        setError('Failed to create session. Please try again.')
+      }
     } catch (err) {
       setError('An unexpected error occurred')
     } finally {
