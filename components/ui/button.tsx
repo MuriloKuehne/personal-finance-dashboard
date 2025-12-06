@@ -31,9 +31,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               variant === 'destructive',
             'bg-[var(--color-button-destructive-bg)] text-[var(--color-button-destructive-text)] hover:bg-[var(--color-button-destructive-hover)]':
               variant === 'destructive',
-            'h-8 px-3 text-sm': size === 'sm',
-            'h-10 px-4 text-base': size === 'md',
-            'h-12 px-6 text-lg': size === 'lg',
+            'h-10 px-3 text-sm min-h-[44px]': size === 'sm',
+            'h-10 px-4 text-base min-h-[44px]': size === 'md',
+            'h-12 px-6 text-lg min-h-[44px]': size === 'lg',
           },
           className
         )}

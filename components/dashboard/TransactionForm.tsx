@@ -80,6 +80,13 @@ export const TransactionForm = ({ transaction, onSuccess }: TransactionFormProps
       setError(null)
       setIsLoading(true)
 
+      // Check if offline
+      if (typeof window !== 'undefined' && !navigator.onLine) {
+        setError('You are currently offline. Please check your internet connection and try again.')
+        setIsLoading(false)
+        return
+      }
+
       const transactionData = {
         amount: Number(data.amount),
         type: data.type,
@@ -96,13 +103,23 @@ export const TransactionForm = ({ transaction, onSuccess }: TransactionFormProps
       }
 
       if (result.error) {
-        setError(result.error)
+        // Check if error is due to network/offline
+        if (result.error.includes('fetch') || result.error.includes('network') || result.error.includes('Failed to fetch')) {
+          setError('Network error. Please check your internet connection and try again.')
+        } else {
+          setError(result.error)
+        }
         return
       }
 
       onSuccess?.()
     } catch (err) {
-      setError('An unexpected error occurred')
+      // Handle network errors
+      if (err instanceof Error && (err.message.includes('fetch') || err.message.includes('network'))) {
+        setError('Network error. Please check your internet connection and try again.')
+      } else {
+        setError('An unexpected error occurred')
+      }
     } finally {
       setIsLoading(false)
     }

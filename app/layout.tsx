@@ -3,6 +3,8 @@ import Script from "next/script";
 import { TASA_Orbiter, Allan } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { ServiceWorkerRegistration } from "@/components/pwa/ServiceWorkerRegistration";
+import { OfflineIndicator } from "@/components/pwa/OfflineIndicator";
 
 const tasaOrbiter = TASA_Orbiter({
   variable: "--font-tasa-orbiter",
@@ -32,6 +34,19 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Finance Dashboard",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#2563eb" },
+    { media: "(prefers-color-scheme: dark)", color: "#2563eb" },
+  ],
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -66,12 +81,26 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  icons: {
+    icon: [
+      { url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/icons/icon-180x180.png", sizes: "180x180", type: "image/png" },
+      { url: "/icons/icon-152x152.png", sizes: "152x152", type: "image/png" },
+      { url: "/icons/icon-120x120.png", sizes: "120x120", type: "image/png" },
+      { url: "/icons/icon-76x76.png", sizes: "76x76", type: "image/png" },
+    ],
+  },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
+  viewportFit: "cover",
+  themeColor: "#2563eb",
 };
 
 export default function RootLayout({
@@ -81,6 +110,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Finance Dashboard" />
+        <meta name="format-detection" content="telephone=no" />
+        <link rel="apple-touch-icon" href="/icons/icon-180x180.png" sizes="180x180" />
+        <link rel="apple-touch-icon" href="/icons/icon-152x152.png" sizes="152x152" />
+        <link rel="apple-touch-icon" href="/icons/icon-120x120.png" sizes="120x120" />
+        <link rel="apple-touch-icon" href="/icons/icon-76x76.png" sizes="76x76" />
+        <link rel="mask-icon" href="/icons/icon-180x180.png" color="#2563eb" />
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <body
         className={`${tasaOrbiter.variable} ${allan.variable} antialiased`}
       >
@@ -102,7 +143,9 @@ export default function RootLayout({
           }}
         />
         <ThemeProvider>
+          <OfflineIndicator />
           {children}
+          <ServiceWorkerRegistration />
         </ThemeProvider>
       </body>
     </html>
